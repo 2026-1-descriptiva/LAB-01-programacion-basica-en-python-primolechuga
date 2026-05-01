@@ -25,3 +25,13 @@ def pregunta_07():
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
+    groups = {}
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            parts = line.strip().split("\t")
+            if len(parts) < 2:
+                continue
+            letter = parts[0]
+            value = int(parts[1])
+            groups.setdefault(value, []).append(letter)
+    return [(value, groups[value]) for value in sorted(groups)]

@@ -24,3 +24,16 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+    counts = {}
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            parts = line.strip().split("\t")
+            if len(parts) < 5:
+                continue
+            entries = parts[4].split(",")
+            for entry in entries:
+                if not entry:
+                    continue
+                key = entry.split(":")[0]
+                counts[key] = counts.get(key, 0) + 1
+    return counts

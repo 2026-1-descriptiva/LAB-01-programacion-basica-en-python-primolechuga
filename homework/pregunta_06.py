@@ -26,3 +26,21 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
+    stats = {}
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            parts = line.strip().split("\t")
+            if len(parts) < 5:
+                continue
+            entries = parts[4].split(",")
+            for entry in entries:
+                if not entry:
+                    continue
+                key, value = entry.split(":")
+                value = int(value)
+                if key not in stats:
+                    stats[key] = [value, value]
+                else:
+                    stats[key][0] = min(stats[key][0], value)
+                    stats[key][1] = max(stats[key][1], value)
+    return [(key, stats[key][0], stats[key][1]) for key in sorted(stats)]
